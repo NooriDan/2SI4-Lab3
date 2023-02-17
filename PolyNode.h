@@ -13,6 +13,15 @@ public:
 		coeff = c;
 		next = n;
 	}
+
+	// custom desturctor for PolyNode
+/*
+	~PolyNode() {
+		delete& deg;
+		delete& coeff;
+	}
+*/
+
 };
 
 #endif /* POLYNODE_H_ */

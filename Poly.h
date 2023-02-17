@@ -10,6 +10,8 @@ class Poly
 private:
 	// must contain this private field, and you can define other private fields
 	PolyNode* head = NULL;
+	int polyDegree;
+	int numOfterms;
 
 public:
 	Poly();
