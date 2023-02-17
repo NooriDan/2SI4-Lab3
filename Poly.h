@@ -13,6 +13,12 @@ private:
 	int polyDegree;
 	int numOfterms;
 
+	//private methods;
+	void insertAfter(PolyNode* nodeBefore, PolyNode* target);
+	void removeAfter(PolyNode* n);
+	int hasDeg(int degree);
+
+
 public:
 	Poly();
 	Poly(const std::vector<int>& deg, const std::vector<double>& coeff);

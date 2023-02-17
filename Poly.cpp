@@ -43,6 +43,36 @@ Poly::~Poly()
 void Poly::addMono(int i, double c)
 {
 	// TODO
+	PolyNode* target = new PolyNode(i, c, NULL);
+	PolyNode* reader = head;
+
+
+	if (head->next->deg > i) {
+		insertAfter(head, target);
+		polyDegree = i;
+		numOfterms++;
+		return;
+	}
+
+	while (reader->next != NULL) {
+		if (reader->next->deg == i) {
+			reader->next->coeff += c;
+			if (reader->next->coeff == 0) {
+				numOfterms--;
+				removeAfter(reader);
+			}
+			return;
+		}
+		if (reader->next->deg < i) {
+			insertAfter(reader, target);
+			numOfterms++;
+			return;
+		}
+		reader = reader->next;
+	}
+
+	insertAfter(reader, target);
+	numOfterms++;
 }
 
 void Poly::addPoly(const Poly& p)
@@ -62,7 +92,23 @@ void Poly::multiplyPoly(const Poly& p)
 
 void Poly::duplicate(Poly& outputPoly)
 {
-	// TODO
+
+	outputPoly.numOfterms = numOfterms;
+	outputPoly.polyDegree = polyDegree;
+
+	if (polyDegree == -1) {
+		outputPoly.head->next = NULL;
+		return;
+	}
+	PolyNode* reader = head->next;
+	PolyNode* target = outputPoly.head;
+
+	while (reader != NULL) {
+		target->next = new PolyNode(reader->deg, reader->coeff, NULL);
+		target = target->next;
+		reader = reader->next;
+	}
+
 }
 
 int Poly::getDegree()
@@ -122,3 +168,38 @@ std::string Poly::toString()
 
 	return output;//change this after completing this function
 }
+
+
+//private methods;
+void Poly::insertAfter(PolyNode* nodeBefore, PolyNode* target) {
+
+	PolyNode* oldNext = nodeBefore->next;
+	nodeBefore->next = target;
+	target->next = oldNext;
+}
+
+void Poly::removeAfter(PolyNode* n) {
+
+	if (n->next != NULL) {
+		PolyNode* oldAfter = n->next;
+		n->next = n->next->next;
+		delete oldAfter;
+	}
+
+}
+
+int Poly::hasDeg(int degree){
+	int counter = 0;
+	PolyNode* reader = head->next;
+
+	for (int i = 0; i < numOfterms; i++)
+	{
+		if (reader->deg == degree) {
+			return counter;
+		}
+		counter++;
+		reader = reader->next;
+	}
+}
+
+
