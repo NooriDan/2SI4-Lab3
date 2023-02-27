@@ -9,6 +9,20 @@ Poly::Poly()
 	polyDegree = -1;
 }
 
+Poly::Poly(int i, double c)
+{
+	if (c == 0) { // sanity check
+		Poly();
+		return;
+	}
+
+	head = new PolyNode(-1, 0, NULL); // intiate the dummy header
+	head->next = new PolyNode(i, c, NULL); // insert the Mono
+
+	numOfterms = 1;
+	polyDegree = i;
+}
+
 Poly::Poly(const std::vector<int>& deg, const std::vector<double>& coeff)
 {
 	numOfterms = deg.size();
@@ -44,53 +58,103 @@ Poly::~Poly()
 void Poly::addMono(int i, double c)
 {
 	// TODO
-	PolyNode* target = new PolyNode(i, c, NULL);
 	PolyNode* reader = head;
+	PolyNode* target; reader->next;
 
-
-	if (head->next->deg < i) {
-		insertAfter(head, target);
-		polyDegree = i;
-		numOfterms++;
-		return;
-	}
 
 	while (reader->next != NULL) {
-		if (reader->next->deg == i) {
-			reader->next->coeff += c;
-			if (reader->next->coeff == 0) {
+
+		target = reader->next; 
+		// stores the node after reader node. it is used to compare the degrees
+
+		if (target->deg > i) reader = reader->next; 
+		// skip as long as the current deg is greater than the input degree
+
+		else if (target->deg == i) { 
+			// handles already existing degrees
+			target->coeff += c;
+
+			if (target->coeff == 0) { // handles zero sum
 				removeAfter(reader);
+				if (reader == head)   // update polyDegree only if the first node was zero sum
+					polyDegree = (reader->next != NULL) > 0 ? reader->next->deg : -1;
 				numOfterms--;
-				polyDegree == numOfterms ? reader->next->deg : -1;
 			}
 			return;
 		}
-		if (reader->next->deg < i) {
-			insertAfter(reader, target);
+
+		else { // handles the insersion of new node (executes when the target degree falls below the input degree)
+			insertAfter(reader, new PolyNode(i, c, NULL));
 			numOfterms++;
+			polyDegree = reader == head ? i : polyDegree;
 			return;
 		}
-		reader = reader->next;
+		
 	}
 
-	insertAfter(reader, target);
-	cout << "HERE: add end\n";
+	insertAfter(reader, new PolyNode(i, c, NULL));
 	numOfterms++;
 }
 
 void Poly::addPoly(const Poly& p)
 {
-	// TODO
+	for (PolyNode* pNode = p.head->next; pNode!= NULL; pNode = pNode->next) {
+		addMono(pNode->deg, pNode->coeff);
+	}
 }
 
 void Poly::multiplyMono(int i, double c)
 {
-	// TODO
+	if (c == 0) {
+
+		numOfterms = 0;
+		polyDegree = -1;
+
+		// deleting all the elements in the poly
+		PolyNode* reader = head->next, *prev;
+
+		while (reader != NULL) {  // needs revision
+			prev = reader;
+			reader = reader->next;
+			delete prev;
+		}
+
+		head->next = NULL;
+		return;
+	}
+
+	for (PolyNode* pNode = head->next; pNode != NULL; pNode = pNode->next) {
+		pNode->coeff *= c;
+		pNode->deg += i;
+	}
+
+	polyDegree += i;
 }
 
 void Poly::multiplyPoly(const Poly& p)
 {
-	// TODO
+	// sanity check
+	if (numOfterms == 0) return;
+
+	if (p.numOfterms == 0) {
+		numOfterms = 0;
+		polyDegree = -1;
+		return; 
+	}
+
+	
+	for (PolyNode* pNode = p.head->next; pNode != NULL; pNode = pNode->next) {
+
+		Poly* results = new Poly(0, 1); // intiate a variable to store the multipication result
+		results->multiplyMono(pNode->deg, pNode->coeff);
+
+		addPoly(*results);
+
+		//delete results;
+	}
+	
+
+
 }
 
 void Poly::duplicate(Poly& outputPoly)

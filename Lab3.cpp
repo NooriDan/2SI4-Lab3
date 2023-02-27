@@ -56,10 +56,10 @@ int main()
 
     //tp.testConstructorDefault(totalMark, fullMark);       // working
     //tp.testConstructorParameters(totalMark, fullMark);    // working
-    tp.testAddMono(totalMark, fullMark);                  // debugging
-    //tp.testAddPoly(totalMark, fullMark);
-    //tp.testMultiplyMono(totalMark, fullMark);
-    //tp.testMultiplyPoly(totalMark, fullMark);
+    //tp.testAddMono(totalMark, fullMark);                  // working
+    //tp.testAddPoly(totalMark, fullMark);                  // debugging
+    //tp.testMultiplyMono(totalMark, fullMark);             // working
+    //tp.testMultiplyPoly(totalMark, fullMark);             // debugging
     //tp.testDuplicate(totalMark, fullMark);                // working
     //tp.testEvaluate(totalMark, fullMark);                 // working
 

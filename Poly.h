@@ -21,6 +21,7 @@ private:
 
 public:
 	Poly();
+	Poly(int i, double c);
 	Poly(const std::vector<int>& deg, const std::vector<double>& coeff);
 	~Poly();
 

@@ -1,4 +1,5 @@
 ﻿  Poly.cpp
-C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(14,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(215): warning C4715: 'Poly::hasDeg': not all control paths return a value
+C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(28,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(80,33): warning C4804: '>': unsafe use of type 'bool' in operation
+C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(278): warning C4715: 'Poly::hasDeg': not all control paths return a value
   2SI4-Lab3.vcxproj -> C:\2SI4-Winter\Lab3\2SI4-Lab3\2SI4-Lab3\x64\Debug\2SI4-Lab3.exe
