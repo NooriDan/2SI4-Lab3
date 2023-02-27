@@ -1,13 +1,2 @@
-﻿  Poly.cpp
-C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(24,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(135,20): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(138,16): warning C4244: '*=': conversion from 'double' to 'int', possible loss of data
-  TestPoly.cpp
-C:\2SI4-Winter\Lab3\2SI4-Lab3\TestPoly.cpp(1482,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\2SI4-Winter\Lab3\2SI4-Lab3\TestPoly.cpp(1614,34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\2SI4-Winter\Lab3\2SI4-Lab3\TestPoly.cpp(1761,34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\2SI4-Winter\Lab3\2SI4-Lab3\TestPoly.cpp(1883,34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\2SI4-Winter\Lab3\2SI4-Lab3\TestPoly.cpp(2006,34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
-C:\2SI4-Winter\Lab3\2SI4-Lab3\Poly.cpp(203): warning C4715: 'Poly::hasDeg': not all control paths return a value
+﻿  Lab3.cpp
   2SI4-Lab3.vcxproj -> C:\2SI4-Winter\Lab3\2SI4-Lab3\2SI4-Lab3\x64\Debug\2SI4-Lab3.exe

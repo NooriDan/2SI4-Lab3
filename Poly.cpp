@@ -13,16 +13,17 @@ Poly::Poly(const std::vector<int>& deg, const std::vector<double>& coeff)
 	head = new PolyNode(-1, 0, NULL); // intiate the dummy header
 	PolyNode* reader = head;
 
+
 	if (deg.size() != coeff.size()) throw _invalid_parameter;
 
 	for (int i = 0; i < deg.size(); i++)
 	{
+
 		reader->next = new PolyNode(deg[i], coeff[i], NULL);
 		reader = reader->next;
 	}
 	polyDegree = deg.at(0);
 	numOfterms = deg.size();
-
 }
 
 Poly::~Poly()
@@ -126,8 +127,8 @@ int Poly::getTermsNo()
 double Poly::evaluate(double x)
 {
 	// TODO
-	int result = 0;
-	int currTerm = 0;
+	double result = 0;
+	double currTerm = 0;
 	PolyNode* reader = head->next;
 	
 	while (reader != NULL) {
@@ -154,18 +155,19 @@ std::string Poly::toString()
 
 	while (reader->next != NULL) {
 		output.append("a(");
-		output.append(to_string(head->deg));
+		output.append(to_string(reader->deg));
 		output.append(")=");
-		output.append(to_string(head->coeff));
+		output.append(to_string(reader->coeff));
 		output.append("; ");
+		reader = reader->next;
 	}
 
 	output.append("a(");
-	output.append(to_string(head->deg));
+	output.append(to_string(reader->deg));
 	output.append(")=");
-	output.append(to_string(head->coeff));
+	output.append(to_string(reader->coeff));
 	output.append(";");
-
+	
 	return output;//change this after completing this function
 }
 
