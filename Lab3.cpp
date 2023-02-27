@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
 
-    
+    /*
     cout << "started the custom test" << endl;
     vector<int> deg1;
     vector<double> cof1;
@@ -38,10 +38,10 @@ int main()
 
     x = 5;
     cout << "x=" << x << " p(x) = " << p1.evaluate(x) << endl;
-
+    */
     
 
-    /*
+    
 	int max_degree = 1000;
 	double max_coeff = 100;
 	int max_eval_degree = 20;
@@ -54,18 +54,18 @@ int main()
 
 	TestPoly tp(max_degree, max_coeff, max_eval_degree, max_eval_coeff, max_run, max_size_array);
 
-    tp.testConstructorDefault(totalMark, fullMark);
-    tp.testConstructorParameters(totalMark, fullMark);
-    //tp.testAddMono(totalMark, fullMark);
+    //tp.testConstructorDefault(totalMark, fullMark);       // working
+    //tp.testConstructorParameters(totalMark, fullMark);    // working
+    tp.testAddMono(totalMark, fullMark);                  // debugging
     //tp.testAddPoly(totalMark, fullMark);
     //tp.testMultiplyMono(totalMark, fullMark);
     //tp.testMultiplyPoly(totalMark, fullMark);
-    //tp.testDuplicate(totalMark, fullMark);
-    tp.testEvaluate(totalMark, fullMark);
+    //tp.testDuplicate(totalMark, fullMark);                // working
+    //tp.testEvaluate(totalMark, fullMark);                 // working
 
     cout << "********************************" << endl;
     cout << "*** FINAL TOTAL MARK IS " << totalMark << "/" << fullMark << " ***" << endl;
     cout << "********************************" << endl;
 
-    */
+    
 }

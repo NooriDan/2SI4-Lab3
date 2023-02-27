@@ -1,4 +1,5 @@
 #include "Poly.h"
+#include <iostream>
 using namespace std;
 
 Poly::Poly()
@@ -10,11 +11,12 @@ Poly::Poly()
 
 Poly::Poly(const std::vector<int>& deg, const std::vector<double>& coeff)
 {
+	numOfterms = deg.size();
+
 	head = new PolyNode(-1, 0, NULL); // intiate the dummy header
 	PolyNode* reader = head;
 
-
-	if (deg.size() != coeff.size()) throw _invalid_parameter;
+	if (deg.size() == 0) return;
 
 	for (int i = 0; i < deg.size(); i++)
 	{
@@ -23,12 +25,11 @@ Poly::Poly(const std::vector<int>& deg, const std::vector<double>& coeff)
 		reader = reader->next;
 	}
 	polyDegree = deg.at(0);
-	numOfterms = deg.size();
 }
 
 Poly::~Poly()
 {
-	/*
+	
 	PolyNode* reader = head;
 	PolyNode* next = head->next;
 
@@ -37,8 +38,7 @@ Poly::~Poly()
 		delete reader;
 		reader = next;
 	}
-	delete head;
-	*/
+	
 }
 
 void Poly::addMono(int i, double c)
@@ -48,7 +48,7 @@ void Poly::addMono(int i, double c)
 	PolyNode* reader = head;
 
 
-	if (head->next->deg > i) {
+	if (head->next->deg < i) {
 		insertAfter(head, target);
 		polyDegree = i;
 		numOfterms++;
@@ -59,8 +59,9 @@ void Poly::addMono(int i, double c)
 		if (reader->next->deg == i) {
 			reader->next->coeff += c;
 			if (reader->next->coeff == 0) {
-				numOfterms--;
 				removeAfter(reader);
+				numOfterms--;
+				polyDegree == numOfterms ? reader->next->deg : -1;
 			}
 			return;
 		}
@@ -73,6 +74,7 @@ void Poly::addMono(int i, double c)
 	}
 
 	insertAfter(reader, target);
+	cout << "HERE: add end\n";
 	numOfterms++;
 }
 
@@ -93,14 +95,14 @@ void Poly::multiplyPoly(const Poly& p)
 
 void Poly::duplicate(Poly& outputPoly)
 {
-
 	outputPoly.numOfterms = numOfterms;
 	outputPoly.polyDegree = polyDegree;
 
 	if (polyDegree == -1) {
-		outputPoly.head->next = NULL;
+		outputPoly.head = new PolyNode(-1, 0, NULL);
 		return;
 	}
+
 	PolyNode* reader = head->next;
 	PolyNode* target = outputPoly.head;
 
@@ -127,8 +129,11 @@ int Poly::getTermsNo()
 double Poly::evaluate(double x)
 {
 	// TODO
-	double result = 0;
-	double currTerm = 0;
+	//cout << "\n\nsize = " << getTermsNo() << " Deg = " << getDegree() << endl;
+	//cout << "poly1 =\n" << toString() << endl;
+	//cout << "x = " << x << endl;
+
+	double currTerm = 0, result =0;
 	PolyNode* reader = head->next;
 	
 	while (reader != NULL) {
@@ -141,11 +146,15 @@ double Poly::evaluate(double x)
 		result += currTerm;
 		reader = reader->next;
 	}
+
+	//cout << "p(" << x << ") = " << result << endl;
 	return result;//change this after completing this function
 }
 
 std::string Poly::toString()
 {
+
+
 	// sample: degree=3; a(3)=4.0; a(1)=5.0; a(0)=2.0
 	string output = "degree=";
 	output.append(to_string(polyDegree));
