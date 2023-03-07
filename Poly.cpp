@@ -12,7 +12,7 @@ Poly::Poly()
 Poly::Poly(int i, double c)
 {
 	if (c == 0) { // sanity check
-		Poly();
+		Poly(); // call the default constructor
 		return;
 	}
 
@@ -58,6 +58,16 @@ Poly::~Poly()
 void Poly::addMono(int i, double c)
 {
 	// TODO
+	if (c == 0) return;
+
+	if (numOfterms == 0) { // sanity check
+
+		head->next = new PolyNode(i, c, NULL);
+		numOfterms = 1;
+		polyDegree = i;
+		return;
+	}
+
 	PolyNode* reader = head;
 	PolyNode* target; reader->next;
 
@@ -98,14 +108,14 @@ void Poly::addMono(int i, double c)
 
 void Poly::addPoly(const Poly& p)
 {
-	if (p.numOfterms == 0) {
-		cout << "p1 = " << toString() << endl;
-
-		cout << "numofterms = " << numOfterms << endl;
-		cout << "polyDegree = " << polyDegree << endl;
-
+	
+	if (p.numOfterms == 0 && numOfterms == 0) {
+		polyDegree = -1;
 		return;
 	}
+	if (p.numOfterms == 0)  return;
+
+	
 	
 	for (PolyNode* pNode = p.head->next; pNode!= NULL; pNode = pNode->next) {
 		addMono(pNode->deg, pNode->coeff);
@@ -143,25 +153,36 @@ void Poly::multiplyMono(int i, double c)
 void Poly::multiplyPoly(const Poly& p)
 {
 	// sanity check
-	if (numOfterms == 0) return;
+	if (numOfterms == 0) {
+		polyDegree = -1;
+		return;
+	}
 
 	if (p.numOfterms == 0) {
-		numOfterms = 0;
-		polyDegree = -1;
+		multiplyMono(0, 0); // multiply all terms by zero removing all the elements
 		return; 
 	}
 
-	
+	Poly *original = new Poly();
+	Poly *termProductResult =  new Poly();
+
+	original->addPoly(*this);	// copy all the elements from the original Poly
+
+	multiplyMono(0, 0);	// remove all the elements (prepare an empty object to store the results)
+
+
 	for (PolyNode* pNode = p.head->next; pNode != NULL; pNode = pNode->next) {
 
-		Poly* results = new Poly(0, 1); // intiate a variable to store the multipication result
-		results->multiplyMono(pNode->deg, pNode->coeff);
+		termProductResult->multiplyMono(0, 0); // earse all old data
+		termProductResult->addPoly(*original);
+		
+		termProductResult->multiplyMono(pNode->deg, pNode->coeff);
 
-		addPoly(*results);
+		addPoly(*termProductResult);
 
-		//delete results;
 	}
 	
+
 
 
 }
