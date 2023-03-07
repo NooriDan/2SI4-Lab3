@@ -46,7 +46,7 @@ int main()
 	double max_coeff = 100;
 	int max_eval_degree = 20;
 	double max_eval_coeff = 10;
-	int max_run = 50;
+	int max_run = 5;
 	vector<int> max_size_array = { 1, 5, 10 };
 
     double fullMark = 0;
@@ -56,7 +56,7 @@ int main()
 
     //tp.testConstructorDefault(totalMark, fullMark);       // working
     //tp.testConstructorParameters(totalMark, fullMark);    // working
-    //tp.testAddMono(totalMark, fullMark);                  // working
+    tp.testAddMono(totalMark, fullMark);                  // working
     //tp.testAddPoly(totalMark, fullMark);                  // debugging
     //tp.testMultiplyMono(totalMark, fullMark);             // working
     //tp.testMultiplyPoly(totalMark, fullMark);             // debugging

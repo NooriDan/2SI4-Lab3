@@ -98,6 +98,15 @@ void Poly::addMono(int i, double c)
 
 void Poly::addPoly(const Poly& p)
 {
+	if (p.numOfterms == 0) {
+		cout << "p1 = " << toString() << endl;
+
+		cout << "numofterms = " << numOfterms << endl;
+		cout << "polyDegree = " << polyDegree << endl;
+
+		return;
+	}
+	
 	for (PolyNode* pNode = p.head->next; pNode!= NULL; pNode = pNode->next) {
 		addMono(pNode->deg, pNode->coeff);
 	}
@@ -223,6 +232,8 @@ std::string Poly::toString()
 	string output = "degree=";
 	output.append(to_string(polyDegree));
 	output.append("; "); // output = "degree=polyDegree; "
+
+	if (numOfterms == 0) return output;
 
 	PolyNode* reader = head->next;
 
